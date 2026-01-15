@@ -1,0 +1,7 @@
+forge-std/=dependencies/forge-std-1.9.6/src/
+hardhat/=node_modules/hardhat
+solidity-bytes-utils/=node_modules/solidity-bytes-utils/
+@openzeppelin/=node_modules/@openzeppelin/
+@layerzerolabs/=node_modules/@layerzerolabs/
+@chainlink/=node_modules/@chainlink/
+@axelar-network/=node_modules/@axelar-network/
