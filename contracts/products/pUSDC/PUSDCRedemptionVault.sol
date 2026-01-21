@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
-import "../../RedemptionVaultWithSwapper.sol";
+import "../../RedemptionVault.sol";
 import "./PUSDCMidasAccessControlRoles.sol";
 
 /**
- * @title PUSDCRedemptionVaultWithSwapper
+ * @title PUSDCRedemptionVault
  * @notice Smart contract that handles pUSDC redemptions
  * @author TermMax Labs
  */
-contract PUSDCRedemptionVaultWithSwapper is
-    RedemptionVaultWithSwapper,
+contract PUSDCRedemptionVault is
+    RedemptionVault,
     PUSDCMidasAccessControlRoles
 {
     /**

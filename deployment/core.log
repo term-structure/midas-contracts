@@ -1,0 +1,24 @@
+== Logs ==
+  Admin: 0x81f314f70702Bbe89FEd0F2cFe6841950275E0b7
+  Deployer: 0xE355d5D8aa52EF0FbbD037C4a3C5E6Fd659cf46B
+  Network: arb-sepolia
+  Deployer balance: 556539855944434000
+  MidasAccessControl deployed at: 0x543E2A13A9C8c3AFF0958A13b8d6CAB8B8d3fc8a
+== Logs ==
+  SanctionsListMock deployed at: 0xbCC35c5CC485ceA7fb389AfA248835de7D1Ec4E8
+  Deployed mock payment token at: 0x024D70e25c81Bd24C22F74a4d51Ff0286849dbE5
+  paymentToken pricefeed deployed at: 0x33325d8766ad11b2D8fBdaC89baEBF233d84e45f
+== Logs ==
+  PUSDCCustomAggregatorFeed impl deployed at: 0x544A1328EDDB2E737D421F06D34287468Fa86Ded
+  PUSDCDataFeed impl deployed at: 0xf53D1f94E6FC6EDCCF8a0CdcFB375ec1b539C2b4
+  pUSDC impl deployed at: 0xf25377042CFe125A9E0712F0edfa34dc51895d0C
+  pUSDC deployed at: 0x1a9741DCa5d0c4c60Bc55b84FF31F15650827DB4
+  pUSDCFeed deployed at: 0x75DFB5bAD1329eB1B42d2E92A4B0046F132f6988
+  pUSDCDataFeed deployed at: 0x7Dbc52CA1B6789c6B6D2aF52e0f8e4E625BB9641
+  payment token data feed deployed at: 0x67e0EA10035727CA53e982d18c433e7497c824aA
+== Logs ==
+  PUSDCDepositVault impl deployed at: 0xAfEB74d510651AcC91dB152608a25338f713D5F4
+  PUSDCRedemptionVault impl deployed at: 0x490C8c41dB0d48DE2D5aBfF227B66426A5d7a014
+
+  DepositVault deployed at: 0x1062706fF623Eb66dEB3995BB058F64e0af74679
+  PUSDCRedemptionVault deployed at: 0x98D8723f386C002F86ed9bB3e0BD98F5297c14bA
