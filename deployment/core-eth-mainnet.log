@@ -1,0 +1,29 @@
+== Logs ==
+  Admin: 0x4479B26363c0465EE05A45ED13B4fAeA3E8b009A
+  Deployer: 0xAeBC56B6f15B863667Ed61FdB4687ea3e22176cd
+  Network: eth-mainnet
+  Deployer balance: 73665910102293749
+  Impl deployed at: 0x333960c2d5B39dE77200ba86Fc9f6634ec736b82
+  MidasAccessControl deployed at: 0x3Fed1bb2fE61f3f41f2B942c9C6C2E8404f5D641
+  Granted admin role to: 0x4479B26363c0465EE05A45ED13B4fAeA3E8b009A
+
+  pUSDC impl deployed at: 0x20a65060d222A3F10759ad22994a596653d2fBFc
+  pUSDC deployed at: 0x333C49B9b8237a9464331b30FB3AecAf0af74F0f
+  PUSDCCustomAggregatorFeed impl deployed at: 0x4dE269cfb5E46Dc721030638844c522D60269d3d
+  pUSDCFeed deployed at: 0x7Bb89BB54e084CBAA9158D816b951E14A2bdc2F0
+  PUSDCDataFeed impl deployed at: 0xe9576a6930cCA9C7385d13d3e7251F6a546e57ED
+  pUSDCDataFeed deployed at: 0x88D5658968DdFc40c5AF67C28475619E43913B51
+  Granted pUSDC data feed admin role to admin
+  payment token data feed deployed at: 0x996f5d4906a3e28c2Ed4388304aDf0bCF7e4D68A
+  Granted payment token data feed admin role to admin
+
+  PUSDCDepositVault impl deployed at: 0xFDAE36A09e20993710c02472F19D032D97320F3d
+  PUSDCRedemptionVault impl deployed at: 0xA8f7628A4Aa3b472F80eeBda8069d621bD36a843
+  DepositVault deployed at: 0x268a621098d387EAFe7Bc0F6B4747F0F34534120
+  Granted pUSDC minter role to DepositVault
+  Granted vault role to admin and deployer for DepositVault
+  Added payment token to DepositVault
+  PUSDCRedemptionVault deployed at: 0x40944667032A1e230833fD54Baa2cDB76Fc5340f
+  Granted vault role to RedemptionVault for admin and deployer
+  Granted pUSDC burner role to PUSDCRedemptionVault
+  Added payment token to PUSDCRedemptionVault

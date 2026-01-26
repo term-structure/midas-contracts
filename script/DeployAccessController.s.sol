@@ -68,6 +68,10 @@ contract DeployAccessController is Script {
 
             midasAccessControl = MidasAccessControl(address(new ERC1967Proxy(address(accessControlImpl), data)));
             console.log("MidasAccessControl deployed at:", address(midasAccessControl));
+
+            midasAccessControl.grantRole(midasAccessControl.DEFAULT_ADMIN_ROLE(), adminAddr);
+            console.log("Granted admin role to:", adminAddr);
+
         }
         vm.stopBroadcast();
     }

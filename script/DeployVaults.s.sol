@@ -50,6 +50,7 @@ contract DeployVaults is Script {
     address redemptionVaultImpl;
 
     address tokenReceiver;
+    address feeReceiver;
 
     uint256 _variationTolerance = 50; // 0.5%
     uint256 _minAmount = 10 ether;
@@ -86,7 +87,7 @@ contract DeployVaults is Script {
             adminAddr = vm.envAddress(adminVar);
             deployerAddr = vm.addr(deployerPrivateKey);
             tokenReceiver = vm.envAddress(string(abi.encodePacked(networkUpper, "_TOKEN_RECEIVER_ADDRESS")));
-
+            feeReceiver = vm.envAddress(string(abi.encodePacked(networkUpper, "_FEE_RECEIVER_ADDRESS")));
             if (!isMainnet) {
                 adminAddr = deployerAddr; // TEMPORARY: set admin to deployer for testing
                 adminPrivateKey = vm.envUint(string(abi.encodePacked(networkUpper, "_ADMIN_PRIVATE_KEY")));
@@ -132,7 +133,7 @@ contract DeployVaults is Script {
                 DepositVault.initialize.selector,
                 address(midasAccessControl),
                 MTokenInitParams({mToken: address(pusdc), mTokenDataFeed: address(pUSDCDataFeed)}),
-                ReceiversInitParams({tokensReceiver: tokenReceiver, feeReceiver: tokenReceiver}),
+                ReceiversInitParams({tokensReceiver: tokenReceiver, feeReceiver: feeReceiver}),
                 InstantInitParams({
                     instantFee: instantFee_Deposit,
                     // use 18 decimals for instant limits
@@ -153,7 +154,8 @@ contract DeployVaults is Script {
         }
 
         midasAccessControl.grantRole(depositVault.vaultRole(), adminAddr);
-        console.log("Granted vault role to admin");
+        midasAccessControl.grantRole(depositVault.vaultRole(), deployerAddr);
+        console.log("Granted vault role to admin and deployer for DepositVault");
 
         depositVault.addPaymentToken(
             address(paymentToken),
@@ -174,7 +176,7 @@ contract DeployVaults is Script {
                 RedemptionVault.initialize.selector,
                 address(midasAccessControl),
                 MTokenInitParams({mToken: address(pusdc), mTokenDataFeed: address(pUSDCDataFeed)}),
-                ReceiversInitParams({tokensReceiver: tokenReceiver, feeReceiver: tokenReceiver}),
+                ReceiversInitParams({tokensReceiver: tokenReceiver, feeReceiver: feeReceiver}),
                 InstantInitParams({
                     instantFee: instantFee_Withdraw,
                     // use 18 decimals for instant limits
@@ -191,7 +193,8 @@ contract DeployVaults is Script {
 
             // grant vault role to redemption vault
             midasAccessControl.grantRole(pUSDCRedemptionVault.vaultRole(), adminAddr);
-            console.log("Granted vault role to RedemptionVault for admin:", adminAddr);
+            midasAccessControl.grantRole(pUSDCRedemptionVault.vaultRole(), deployerAddr);
+            console.log("Granted vault role to RedemptionVault for admin and deployer");
 
             // grant burner role to redemption vault
             midasAccessControl.grantRole(pusdc.P_USDC_BURN_OPERATOR_ROLE(), address(pUSDCRedemptionVault));
