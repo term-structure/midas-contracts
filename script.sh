@@ -6,7 +6,9 @@ if [ "$#" -lt 2 ]; then
     echo ""
     echo "Commands:"
     echo "  1. Script Commands:"
-    echo "     - script:<script-name>   - Run a custom script (e.g., script:GrantRoles, script:SubmitOracles)"
+    echo "     - script:<script-name>   - Run a custom script"
+    echo "                              (e.g., script:GrantRoles, script:SubmitOracles)"
+    echo "                              (e.g., script:products/leveragedQQQon/DeployLeveragedQQQon)"
     echo ""
     echo "Options:"
     echo "  --broadcast     Broadcast transactions (default: dry run)"
@@ -91,10 +93,16 @@ export IS_L2
 export IS_MAINNET
 export IS_BROADCAST
 
+# Ensure deployment output directory exists for script JSON artifacts
+DEPLOYMENT_DIR="deployment/$NETWORK"
+mkdir -p "$DEPLOYMENT_DIR"
+export DEPLOYMENT_DIR
+
 # Determine the script path and name
 if [ "$OPERATION" = "script" ]; then
     # For custom scripts, try multiple locations
     SCRIPT_LOCATIONS=(
+        "script/deploy/products/${SCRIPT_NAME}.s.sol"
         "script/deploy/${SCRIPT_NAME}.s.sol"
         "script/${SCRIPT_NAME}.s.sol"
         "script/utils/${SCRIPT_NAME}.s.sol"
