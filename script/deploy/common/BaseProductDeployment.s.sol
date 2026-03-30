@@ -94,30 +94,50 @@ abstract contract BaseProductDeployment is Script {
         console.log("Saved deployment JSON:", filePath);
     }
 
+    function _sameString(string memory left, string memory right) internal pure returns (bool) {
+        return keccak256(bytes(left)) == keccak256(bytes(right));
+    }
+
+    function _mergeSharedImplJson(string memory existingJson, string memory key, address impl)
+        internal
+        returns (string memory)
+    {
+        string[] memory existingKeys = vm.parseJsonKeys(existingJson, ".");
+        string memory objectKey = string(abi.encodePacked(SHARED_IMPL_FILE, "-", key, "-", vm.toString(impl)));
+        string memory mergedJson;
+        bool replaced;
+
+        for (uint256 index = 0; index < existingKeys.length; index++) {
+            string memory existingKey = existingKeys[index];
+            address value = impl;
+
+            if (_sameString(existingKey, key)) {
+                replaced = true;
+            } else {
+                value = vm.parseJsonAddress(existingJson, string(abi.encodePacked(".", existingKey)));
+            }
+
+            mergedJson = vm.serializeAddress(objectKey, existingKey, value);
+        }
+
+        if (!replaced) {
+            mergedJson = vm.serializeAddress(objectKey, key, impl);
+        }
+
+        return mergedJson;
+    }
+
     function _saveSharedImpl(string memory key, address impl) internal {
         string memory filePath = _deploymentFilePath(SHARED_IMPL_FILE);
-        if (!vm.isFile(filePath)) {
-            vm.writeJson("{}", filePath);
-        }
+        string memory existingJson = vm.isFile(filePath) ? vm.readFile(filePath) : "{}";
+        string memory mergedJson = _mergeSharedImplJson(existingJson, key, impl);
         string memory dotKey = string(abi.encodePacked(".", key));
         string memory dollarKey = string(abi.encodePacked("$.", key));
-        string memory jsonValue = string(abi.encodePacked('"', vm.toString(impl), '"'));
 
-        // Foundry JSON path support can vary between versions; try both path styles.
-        vm.writeJson(jsonValue, filePath, dotKey);
-        vm.writeJson(jsonValue, filePath, dollarKey);
+        vm.writeJson(mergedJson, filePath);
 
         string memory json = vm.readFile(filePath);
         bool exists = vm.keyExistsJson(json, dotKey) || vm.keyExistsJson(json, dollarKey);
-
-        // Fallback: accumulate into a full object and overwrite file if path writes are unsupported.
-        if (!exists) {
-            string memory fullJson = vm.serializeAddress(SHARED_IMPL_FILE, key, impl);
-            vm.writeJson(fullJson, filePath);
-
-            json = vm.readFile(filePath);
-            exists = vm.keyExistsJson(json, dotKey) || vm.keyExistsJson(json, dollarKey);
-        }
 
         require(exists, "Shared impl write failed");
 
