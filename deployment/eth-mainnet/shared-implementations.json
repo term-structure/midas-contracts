@@ -2,5 +2,7 @@
   "genericDataFeedImpl": "0x8752bb71648cC44C30000531D97825cf9c2d8d75",
   "leveragedQQQonCustomAggregatorFeedImpl": "0x2163F6e5599D54c29F5064D19B9Cb2EAD7AB5e36",
   "leveragedQQQonDataFeedImpl": "0x29DE44b2AC307416C3c7A6E3204034e257c05C20",
-  "leveragedQQQonMTokenImpl": "0xB18cc776fCEF403Bfe08eBfbA8b58fA7dc2949F7"
+  "leveragedQQQonDepositVaultImpl": "0x15E6Fb060AF7E12D6634685AbFaF3b71300c29e4",
+  "leveragedQQQonMTokenImpl": "0xB18cc776fCEF403Bfe08eBfbA8b58fA7dc2949F7",
+  "leveragedQQQonRedemptionVaultImpl": "0x8d67Cb6e3f359A88273A3115F992eE89673CFC7e"
 }
