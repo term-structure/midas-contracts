@@ -63,9 +63,9 @@ contract DeployLeveragedQQQonVaults is BaseProductDeployment {
 
     bool internal isPaymentTokenStable = true;
     uint256 internal paymentTokenDepositFee = 0;
-    uint256 internal paymentTokenDepositAllowance = 100_000_000e6;
+    uint256 internal paymentTokenDepositAllowance = 100_000_000e18;
     uint256 internal paymentTokenWithdrawFee = 0;
-    uint256 internal paymentTokenWithdrawAllowance = 100_000_000e6;
+    uint256 internal paymentTokenWithdrawAllowance = 100_000_000e18;
 
     uint256 internal fiatAdditionalFee = 0;
     uint256 internal fiatFlatFee = 0;
