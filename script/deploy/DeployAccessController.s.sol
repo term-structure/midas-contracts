@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {Script} from "forge-std/Script.sol";
 import {VmSafe} from "forge-std/Vm.sol";
 import "forge-std/console.sol";
-import {StringHelper} from "./utils/StringHelper.sol";
+import {StringHelper} from "../utils/StringHelper.sol";
 import {MidasAccessControl} from "contracts/access/MidasAccessControl.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import {ERC20Mock} from "contracts/mocks/ERC20Mock.sol";
@@ -21,6 +21,8 @@ import {PUSDCRedemptionVault} from "contracts/products/pUSDC/PUSDCRedemptionVaul
 
 contract DeployAccessController is Script {
     using StringHelper for string;
+
+    string internal constant DEPLOYMENT_ARTIFACT = "midas-access-control";
 
     string public network;
     uint256 public deployerPrivateKey;
@@ -71,8 +73,25 @@ contract DeployAccessController is Script {
 
             midasAccessControl.grantRole(midasAccessControl.DEFAULT_ADMIN_ROLE(), adminAddr);
             console.log("Granted admin role to:", adminAddr);
-
         }
+
+        _saveDeployment();
         vm.stopBroadcast();
+    }
+
+    function _deploymentFilePath() internal view returns (string memory) {
+        return string(abi.encodePacked("deployment/", network, "/", DEPLOYMENT_ARTIFACT, ".json"));
+    }
+
+    function _saveDeployment() internal {
+        string memory objectKey = DEPLOYMENT_ARTIFACT;
+        vm.serializeAddress(objectKey, "accessControlImpl", accessControlImpl);
+        vm.serializeAddress(objectKey, "accessControlProxy", address(midasAccessControl));
+        vm.serializeAddress(objectKey, "admin", adminAddr);
+        string memory json = vm.serializeAddress(objectKey, "deployer", deployerAddr);
+
+        string memory filePath = _deploymentFilePath();
+        vm.writeJson(json, filePath);
+        console.log("Saved deployment JSON:", filePath);
     }
 }

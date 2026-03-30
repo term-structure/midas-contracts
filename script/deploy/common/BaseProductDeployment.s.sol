@@ -21,6 +21,7 @@ abstract contract BaseProductDeployment is Script {
     MidasAccessControl internal midasAccessControl;
 
     string internal constant SHARED_IMPL_FILE = "shared-implementations";
+    string internal constant ACCESS_CONTROL_ARTIFACT = "midas-access-control";
 
     function _setUpBase() internal {
         network = vm.envString("NETWORK");
@@ -36,7 +37,12 @@ abstract contract BaseProductDeployment is Script {
             adminAddr = deployerAddr;
         }
 
-        midasAccessControl = MidasAccessControl(vm.envAddress(_envName("MIDAS_ACCESS_CONTROL_ADDRESS")));
+        (address configuredAccessControl, bool hasAccessControlEnv) = _optionalEnvAddress("MIDAS_ACCESS_CONTROL_ADDRESS");
+        if (hasAccessControlEnv) {
+            midasAccessControl = MidasAccessControl(configuredAccessControl);
+        } else {
+            midasAccessControl = MidasAccessControl(_loadMidasAccessControlFromDeployment());
+        }
 
         console.log("Network:", network);
         console.log("Mainnet:", isMainnet);
@@ -44,6 +50,22 @@ abstract contract BaseProductDeployment is Script {
         console.log("Admin:", adminAddr);
         console.log("Deployer:", deployerAddr);
         console.log("MidasAccessControl:", address(midasAccessControl));
+    }
+
+    function _loadMidasAccessControlFromDeployment() internal view returns (address) {
+        string memory filePath = _deploymentFilePath(ACCESS_CONTROL_ARTIFACT);
+        require(vm.isFile(filePath), "Missing MIDAS_ACCESS_CONTROL env and deployment JSON");
+
+        string memory json = vm.readFile(filePath);
+
+        if (vm.keyExistsJson(json, ".accessControlProxy")) {
+            return vm.parseJsonAddress(json, ".accessControlProxy");
+        }
+        if (vm.keyExistsJson(json, ".networkAccessControl")) {
+            return vm.parseJsonAddress(json, ".networkAccessControl");
+        }
+
+        revert("MIDAS access control address not found in deployment JSON");
     }
 
     function _envName(string memory suffix) internal view returns (string memory) {
