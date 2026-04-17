@@ -1,0 +1,6 @@
+{
+  "depositVaultImpl": "0x87CbDF3Bf9B8350A7f714081d12a07481f7F9535",
+  "depositVaultProxy": "0xfDf69e30279f760B758321145f2259746C443616",
+  "redemptionVaultImpl": "0x78CB63b1D883C9e984aeA9F310A5B075b538504B",
+  "redemptionVaultProxy": "0xF8D0B3f21774c66C41f868b559e09707F5c0Aaf5"
+}
