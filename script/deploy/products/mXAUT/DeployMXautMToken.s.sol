@@ -44,7 +44,7 @@ contract DeployMXautMToken is BaseProductDeployment {
     // --- mToken price feed parameters ---
     int192 internal mTokenMinPrice = 2000e8;
     int192 internal mTokenMaxPrice = 10000e8;
-    uint256 internal mTokenMaxDeviation = 1000e8;
+    uint256 internal mTokenMaxDeviation = 10e8; // 10% max deviation
     uint256 internal mTokenHealthyDiff = 7 days;
     int192 internal mTokenInitialPrice = 4800e8;
 
