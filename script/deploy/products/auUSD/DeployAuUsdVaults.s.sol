@@ -50,21 +50,21 @@ contract DeployAuUsdVaults is BaseProductDeployment {
 
     // --- Vault parameters ---
     uint256 internal variationTolerance = 500;
-    uint256 internal minAmount = 10 ether;
-    uint256 internal minMTokenAmountForFirstDeposit = 10 ether;
-    uint256 internal maxSupplyCap = 10_000_000 ether;
+    uint256 internal minAmount = 1 ether;
+    uint256 internal minMTokenAmountForFirstDeposit = 1 ether;
+    uint256 internal maxSupplyCap = 1_000_000_000 ether;
 
     uint256 internal instantFeeDeposit = 0;
-    uint256 internal instantDailyLimitDeposit = 2_000_000 ether;
+    uint256 internal instantDailyLimitDeposit = 100_000_000 ether;
     uint256 internal instantFeeWithdraw = 50;
-    uint256 internal instantDailyLimitWithdraw = 10_000 ether;
+    uint256 internal instantDailyLimitWithdraw = 100_000 ether;
     uint256 internal mintAmountWithdraw = 1 ether;
 
     bool internal isPaymentTokenStable = true;
     uint256 internal paymentTokenDepositFee = 0;
-    uint256 internal paymentTokenDepositAllowance = 100_000_000e18;
+    uint256 internal paymentTokenDepositAllowance = 100_000_000 ether;
     uint256 internal paymentTokenWithdrawFee = 0;
-    uint256 internal paymentTokenWithdrawAllowance = 100_000_000e18;
+    uint256 internal paymentTokenWithdrawAllowance = 100_000_000 ether;
 
     uint256 internal fiatAdditionalFee = 0;
     uint256 internal fiatFlatFee = 0;

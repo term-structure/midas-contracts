@@ -42,15 +42,15 @@ contract DeployMXautMToken is BaseProductDeployment {
     address internal paymentTokenDataFeedImpl;
 
     // --- mToken price feed parameters ---
-    int192 internal mTokenMinPrice = 0.1e8;
-    int192 internal mTokenMaxPrice = 100e8;
-    uint256 internal mTokenMaxDeviation = 10e8;
+    int192 internal mTokenMinPrice = 2000e8;
+    int192 internal mTokenMaxPrice = 10000e8;
+    uint256 internal mTokenMaxDeviation = 1000e8;
     uint256 internal mTokenHealthyDiff = 7 days;
-    int192 internal mTokenInitialPrice = 1e8;
+    int192 internal mTokenInitialPrice = 4800e8;
 
     // --- Payment token data feed parameters ---
-    int192 internal paymentTokenMinPrice = 99_700_000;
-    int192 internal paymentTokenMaxPrice = 100_300_000;
+    int192 internal paymentTokenMinPrice = 2000e8;
+    int192 internal paymentTokenMaxPrice = 10000e8;
     uint256 internal paymentTokenHealthyDiff = 1 days;
 
     function setUp() public {

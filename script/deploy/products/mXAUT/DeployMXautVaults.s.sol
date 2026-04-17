@@ -49,22 +49,22 @@ contract DeployMXautVaults is BaseProductDeployment {
     address internal redemptionVaultImpl;
 
     // --- Vault parameters ---
-    uint256 internal variationTolerance = 500;
-    uint256 internal minAmount = 10 ether;
-    uint256 internal minMTokenAmountForFirstDeposit = 10 ether;
+    uint256 internal variationTolerance = 1000; // 10% price deviation tolerance for deposits and withdrawals
+    uint256 internal minAmount = 0.001 ether;
+    uint256 internal minMTokenAmountForFirstDeposit = 0.001 ether;
     uint256 internal maxSupplyCap = 10_000_000 ether;
 
     uint256 internal instantFeeDeposit = 0;
     uint256 internal instantDailyLimitDeposit = 2_000_000 ether;
     uint256 internal instantFeeWithdraw = 50;
-    uint256 internal instantDailyLimitWithdraw = 10_000 ether;
-    uint256 internal mintAmountWithdraw = 1 ether;
+    uint256 internal instantDailyLimitWithdraw = 200 ether;
+    uint256 internal mintAmountWithdraw = 0.001 ether;
 
     bool internal isPaymentTokenStable = true;
     uint256 internal paymentTokenDepositFee = 0;
-    uint256 internal paymentTokenDepositAllowance = 100_000_000e18;
+    uint256 internal paymentTokenDepositAllowance = 2_000_000 ether;
     uint256 internal paymentTokenWithdrawFee = 0;
-    uint256 internal paymentTokenWithdrawAllowance = 100_000_000e18;
+    uint256 internal paymentTokenWithdrawAllowance = 2_000_000 ether;
 
     uint256 internal fiatAdditionalFee = 0;
     uint256 internal fiatFlatFee = 0;

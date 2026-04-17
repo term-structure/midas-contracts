@@ -42,15 +42,15 @@ contract DeployAuUsdMToken is BaseProductDeployment {
     address internal paymentTokenDataFeedImpl;
 
     // --- mToken price feed parameters ---
-    int192 internal mTokenMinPrice = 0.1e8;
-    int192 internal mTokenMaxPrice = 100e8;
-    uint256 internal mTokenMaxDeviation = 10e8;
-    uint256 internal mTokenHealthyDiff = 7 days;
+    int192 internal mTokenMinPrice = 0.99e8;
+    int192 internal mTokenMaxPrice = 1.01e8;
+    uint256 internal mTokenMaxDeviation = 0.01e8;
+    uint256 internal mTokenHealthyDiff = 365 days;
     int192 internal mTokenInitialPrice = 1e8;
 
     // --- Payment token data feed parameters ---
-    int192 internal paymentTokenMinPrice = 99_700_000;
-    int192 internal paymentTokenMaxPrice = 100_300_000;
+    int192 internal paymentTokenMinPrice = 0.9e8;
+    int192 internal paymentTokenMaxPrice = 1.1e8;
     uint256 internal paymentTokenHealthyDiff = 1 days;
 
     function setUp() public {
