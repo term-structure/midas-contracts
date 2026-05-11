@@ -60,7 +60,7 @@ contract DeployMXautVaults is BaseProductDeployment {
     uint256 internal instantDailyLimitWithdraw = 200 ether;
     uint256 internal mintAmountWithdraw = 0.001 ether;
 
-    bool internal isPaymentTokenStable = true;
+    bool internal isPaymentTokenStable = false;
     uint256 internal paymentTokenDepositFee = 0;
     uint256 internal paymentTokenDepositAllowance = 2_000_000 ether;
     uint256 internal paymentTokenWithdrawFee = 0;
