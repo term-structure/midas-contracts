@@ -63,7 +63,7 @@ contract DeployAccessController is Script {
         vm.startBroadcast(deployerPrivateKey);
         // deploy MidasAccessControl
         {
-            accessControlImpl = 0x9b94Aac01EcBB8fb31E52cE21D1f57849A843Feb;
+            accessControlImpl = address(new MidasAccessControl());
             console.log("Impl deployed at:", address(accessControlImpl));
 
             bytes memory data = abi.encodeWithSignature("initialize()");
