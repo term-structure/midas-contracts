@@ -7,5 +7,7 @@
   "leveragedQQQonRedemptionVaultImpl": "0x8d67Cb6e3f359A88273A3115F992eE89673CFC7e",
   "termPrimeCustomAggregatorFeedImpl": "0xE211882C994C6E82F9A6607279Ad1e0F05FA64d5",
   "termPrimeDataFeedImpl": "0x854732A1f15A2e4f595C8f83b4432847720F452F",
-  "termPrimeMTokenImpl": "0xDeDBf8C5421555fE087B4A7419CAa309d14e9098"
+  "termPrimeDepositVaultImpl": "0xcf2f2BF1Cfee14D63574f68A78a7ec2f5832513E",
+  "termPrimeMTokenImpl": "0xDeDBf8C5421555fE087B4A7419CAa309d14e9098",
+  "termPrimeRedemptionVaultImpl": "0xEcA0Ad75Dd5004229ea94d7fE26c8a10989f3A03"
 }
