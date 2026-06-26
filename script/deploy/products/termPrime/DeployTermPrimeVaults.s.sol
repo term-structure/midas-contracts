@@ -18,8 +18,10 @@ import {TermPrimeRedemptionVault} from "contracts/products/termPrime/TermPrimeRe
 /**
  * @title DeployTermPrimeVaults
  * @notice Deploys TermPrime deposit and redemption vaults.
- *         Instant mint and withdraw are disabled (instantDailyLimit = 0);
- *         all deposits and redemptions require manual approval.
+ *         Instant mint and withdraw are disabled by pausing the instant function
+ *         selectors after deployment — all deposits and redemptions require manual approval.
+ *         instantDailyLimit is set to type(uint256).max to satisfy the > 0 invariant,
+ *         but the functions themselves are paused so the limit is never reached.
  *         Reads mToken + data feed addresses from the mToken deployment JSON
  *         (termPrime-mtoken.json) or from environment variables.
  *
@@ -57,11 +59,12 @@ contract DeployTermPrimeVaults is BaseProductDeployment {
     uint256 internal minMTokenAmountForFirstDeposit = 10 ether;
     uint256 internal maxSupplyCap = 10_000_000 ether;
 
-    // Instant mint/withdraw are disabled — all operations require approval
+    // instantDailyLimit must be > 0 (contract invariant), so we set max and then
+    // pause the instant function selectors — effectively disabling instant operations
     uint256 internal instantFeeDeposit = 0;
-    uint256 internal instantDailyLimitDeposit = 0;
+    uint256 internal instantDailyLimitDeposit = type(uint256).max;
     uint256 internal instantFeeWithdraw = 0;
-    uint256 internal instantDailyLimitWithdraw = 0;
+    uint256 internal instantDailyLimitWithdraw = type(uint256).max;
     uint256 internal mintAmountWithdraw = 1 ether;
 
     bool internal isPaymentTokenStable = true;
@@ -110,6 +113,7 @@ contract DeployTermPrimeVaults is BaseProductDeployment {
         _deployVaults();
         _grantTemporaryRoles();
         _configureVaults();
+        _pauseInstantFunctions();
         _grantRoles();
         _revokeTemporaryRoles();
         _saveDeployment();
@@ -246,6 +250,16 @@ contract DeployTermPrimeVaults is BaseProductDeployment {
         );
 
         redemptionVault.setRequestRedeemer(address(redemptionVault));
+    }
+
+    function _pauseInstantFunctions() internal {
+        // Pause all instant deposit/redeem entry points so that only request-based
+        // (approval-required) flows are available to users
+        depositVault.pauseFn(bytes4(keccak256("depositInstant(address,uint256,uint256,bytes32)")));
+        depositVault.pauseFn(bytes4(keccak256("depositInstant(address,uint256,uint256,bytes32,address)")));
+        redemptionVault.pauseFn(bytes4(keccak256("redeemInstant(address,uint256,uint256)")));
+        redemptionVault.pauseFn(bytes4(keccak256("redeemInstant(address,uint256,uint256,address)")));
+        console.log("Instant deposit and redeem functions paused");
     }
 
     function _grantRoles() internal {
